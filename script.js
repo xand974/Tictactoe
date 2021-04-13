@@ -60,6 +60,8 @@ function ComputerPlay()
             if(!isPlaying)
             {
                 element.innerHTML = o;
+                element.classList.remove('XColor');
+                element.classList.add('OColor');
                 console.log(btnTicTacToe);
                 for (var i = 0; i <= btnTicTacToe.length; i++) {
                     if (element.innerHTML = o) 
@@ -82,7 +84,7 @@ function ComputerPlay()
 
 
     //FONCTIONNE PAS 
-    
+
     /*btnTicTacToeComputer.forEach(elementO =>
     {
         elementO.addEventListener('click', () => 
@@ -120,6 +122,7 @@ function PlayerPlay()
             if(isPlaying == true)
             {
                 element.innerHTML = x;
+                element.classList.remove('OColor');
                 element.classList.add('XColor');
 
                 for (var i = 0; i <= btnTicTacToe.length; i++) {

@@ -66,3 +66,8 @@ button{
     transition: 0.3s;
     color: rgb(190, 231, 182);
 }
+
+.OColor{
+    transition: 0.3s;
+    color: rgb(252, 152, 152);
+}
