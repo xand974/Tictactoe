@@ -27,9 +27,13 @@ myTitle.addEventListener('mouseleave', () => {
 
 //Jeu Tic Tac Toe
 
+const classBtn = document.getElementsByClassName('.divBtn');
+
 const btnTicTacToe = document.querySelectorAll('button');
 const textX = document.querySelectorAll('p');
-var isPlaying = true;
+let isPlaying = true;
+
+let hasWon = false;
 
 var x = "X";
 var o = "O";
@@ -59,8 +63,8 @@ function WhoSTart()
 }
 
 WhoSTart();
-
-
+PlayerWon();
+Winner();
 
 
 
@@ -137,6 +141,8 @@ function PlayerPlay()
         {
         element.addEventListener('click', () => 
         {
+            var elm = element;
+            console.log(elm);
             if(isPlaying == true)
             {
                 element.innerHTML = x;
@@ -150,6 +156,7 @@ function PlayerPlay()
                         isPlaying = false;
                         console.log("Player has played");
                         console.log(isPlaying);
+                        console.log(element);
                         break;
                     }
                 }
@@ -163,8 +170,52 @@ function PlayerPlay()
 }
 
 
+//Fonction Pour déterminer qui a gagner 
 
-//Si le joueur est en train de jouer, ne rien faire, sinon ordi joue 
+
+function PlayerWon()
+{
+    for(var i = 1; i <= btnTicTacToe.length; i++)
+    {
+        if(btnTicTacToe[0].innerHTML == x && btnTicTacToe[1].innerHTML == x && btnTicTacToe[2].innerHTML == x ||
+           btnTicTacToe[3].innerHTML == x && btnTicTacToe[4].innerHTML == x && btnTicTacToe[4].innerHTML == x || 
+           btnTicTacToe[6].innerHTML == x && btnTicTacToe[7].innerHTML == x && btnTicTacToe[8].innerHTML == x ||
+           btnTicTacToe[0].innerHTML == x && btnTicTacToe[4].innerHTML == x && btnTicTacToe[8].innerHTML == x ||
+           btnTicTacToe[2].innerHTML == x && btnTicTacToe[4].innerHTML == x && btnTicTacToe[6].innerHTML == x)
+        {
+            console.log("player a gagné");
+            hasWon = true;
+
+        }
+    }
+}
+
+var interPlay =  setInterval(PlayerWon , 3000);
+var inter =  setInterval(Winner, 1600);
+
+function Winner()
+{
+
+    if(hasWon == false)
+    {
+        interPlay;
+        console.log("still playing");
+    
+    }
+    else
+    {
+        setTimeout(WeHaveAWinner, 2000);
+        console.log("we have a winner");
+    }
+}
+
+function WeHaveAWinner()
+{
+    console.log("PLAYER IS THE WINNER");
+    clearInterval(inter);
+    clearInterval(interPlay);
+}
+
 
 
 
