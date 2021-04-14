@@ -27,8 +27,6 @@ myTitle.addEventListener('mouseleave', () => {
 
 //Jeu Tic Tac Toe
 
-const classBtn = document.getElementsByClassName('.divBtn');
-
 const btnTicTacToe = document.querySelectorAll('button');
 const textX = document.querySelectorAll('p');
 
@@ -38,11 +36,13 @@ const banPlayer = document.getElementById('banPlayer');
 const banPlayerTwo = document.getElementById('banPlayerTwo');
 //En jeu
 let isPlaying = true;
-
+var hasPlayerWon;
 
 //Gagnant
 var interPlay =  setInterval(PlayerWon , 3000);
 var inter =  setInterval(Winner, 1600);
+var interPlayTwo = setInterval(ComputerWon, 3000);
+
 
 let hasWon = false;
 
@@ -61,7 +61,7 @@ console.log(isPlaying);
 WhoSTart();
 PlayerWon();
 Winner();
-
+ComputerWon();
 
 
 //Qui commence ? 
@@ -72,6 +72,7 @@ function WhoSTart()
     var j = Math.floor(Math.random() * 2);
     if(j == 1)
     {
+        banPlayer.classList.add('animBan');
         banPlayerTwo.style.display = "none";
         SetStartOne();
         console.log("Player plays")
@@ -79,6 +80,7 @@ function WhoSTart()
     }
     else
     {
+        banPlayerTwo.classList.add('animBan');
         console.log("Computer plays");
         ComputerPlay();
         isPlaying = false;
@@ -97,7 +99,7 @@ function SetStartOne()
     var interStart = setTimeout(function() 
     {
         banPlayer.style.display = "none";
-    }, 1000)
+    }, 1500)
 }
 
 function SetStartTwo()
@@ -105,7 +107,7 @@ function SetStartTwo()
     var interStartTwo = setTimeout(function() 
     {
         banPlayerTwo.style.display = "none";
-    }, 1000)
+    }, 1500)
 }
 
 //Script second joueur
@@ -218,13 +220,14 @@ function PlayerWon()
     for(var i = 1; i <= btnTicTacToe.length; i++)
     {
         if(btnTicTacToe[0].innerHTML == x && btnTicTacToe[1].innerHTML == x && btnTicTacToe[2].innerHTML == x ||
-           btnTicTacToe[3].innerHTML == x && btnTicTacToe[4].innerHTML == x && btnTicTacToe[4].innerHTML == x || 
+           btnTicTacToe[3].innerHTML == x && btnTicTacToe[4].innerHTML == x && btnTicTacToe[5].innerHTML == x || 
            btnTicTacToe[6].innerHTML == x && btnTicTacToe[7].innerHTML == x && btnTicTacToe[8].innerHTML == x ||
            btnTicTacToe[0].innerHTML == x && btnTicTacToe[4].innerHTML == x && btnTicTacToe[8].innerHTML == x ||
            btnTicTacToe[2].innerHTML == x && btnTicTacToe[4].innerHTML == x && btnTicTacToe[6].innerHTML == x)
         {
             console.log("player a gagné");
             hasWon = true;
+            hasPlayerWon = true;
 
         }
     }
@@ -232,31 +235,68 @@ function PlayerWon()
 
 
 
+function ComputerWon()
+{
+    for(var i = 1; i <= btnTicTacToe.length; i++)
+    {
+        if(btnTicTacToe[0].innerHTML == o && btnTicTacToe[1].innerHTML == o && btnTicTacToe[2].innerHTML == o ||
+           btnTicTacToe[3].innerHTML == o && btnTicTacToe[4].innerHTML == o && btnTicTacToe[5].innerHTML == o || 
+           btnTicTacToe[6].innerHTML == o && btnTicTacToe[7].innerHTML == o && btnTicTacToe[8].innerHTML == o ||
+           btnTicTacToe[0].innerHTML == o && btnTicTacToe[4].innerHTML == o && btnTicTacToe[8].innerHTML == o ||
+           btnTicTacToe[2].innerHTML == o && btnTicTacToe[4].innerHTML == o && btnTicTacToe[6].innerHTML == o)
+        {
+            console.log("player 2 a gagné");
+            hasWon = true;
+            hasPlayerWon = false;
+
+        }
+    }
+}
+
+
 function Winner()
 {
-
     if(hasWon == false)
     {
+        interPlayTwo;
         interPlay;
         console.log("still playing");
     
     }
     else
     {
-        setTimeout(PrintTheAWinner, 1000);
-        console.log("we have a winner");
-        clearInterval(inter);
-        clearInterval(interPlay);
+        if(hasPlayerWon == true)
+        {
+            setTimeout(PrintTheAWinner, 1000);
+            console.log("we have a winner : player 1");
+            clearInterval(inter);
+            clearInterval(interPlay);
+            clearInterval(interPlayTwo)
+        }
+        else if(hasPlayerWon == false)
+        {
+            setTimeout(PrintTheAWinnerPlayerTwo, 1000);
+            console.log("we have a winner : player 2");
+            clearInterval(inter);
+            clearInterval(interPlay);
+            clearInterval(interPlayTwo)
+        }
+        
     }
 }
 
 function PrintTheAWinner()
 {
-    console.log("PLAYER IS THE WINNER");
+    console.log("PLAYER ONE IS THE WINNER");
+    console.log(hasPlayerWon);
 
 }
 
-
+function PrintTheAWinnerPlayerTwo()
+{
+    console.log("PLAYER TWO IS THE WINNER");
+    console.log(hasPlayerWon);
+}
 
 
 
