@@ -37,16 +37,34 @@ var o = "O";
 //Ordi Joue
 console.log(isPlaying);
 
-if(isPlaying == true)
+
+
+//Qui commence ? 
+//Faire une fonction qui commence 
+
+function WhoSTart()
 {
-    PlayerPlay();
-}
-else
-{
-    console.log("Computer plays");
-    ComputerPlay();
+    var j = Math.floor(Math.random() * 2);
+    if(j == 1)
+    {
+        console.log("Player plays")
+        PlayerPlay();
+    }
+    else
+    {
+        console.log("Computer plays");
+        ComputerPlay();
+        isPlaying = false;
+    }
 }
 
+WhoSTart();
+
+
+
+
+
+//Script second joueur
 //tableau de toutes les valeurs de 0 à 8
 //Si on click sur un bouton, ajouter la valeur au tableau
 function ComputerPlay()
@@ -63,14 +81,14 @@ function ComputerPlay()
                 element.classList.remove('XColor');
                 element.classList.add('OColor');
                 console.log(btnTicTacToe);
-                for (var i = 0; i <= btnTicTacToe.length; i++) {
+                for (var i = 0; i <= btnTicTacToe.length; i++) 
+                {
                     if (element.innerHTML = o) 
                     {
                         element.disabled = true;
                         isPlaying = true;
                         console.log("Player has played");
                         console.log(isPlaying);
-                        console.log("computer plays");
                         break;
                     }
                 }
@@ -81,7 +99,7 @@ function ComputerPlay()
 
         
     })
-
+}
 
     //FONCTIONNE PAS 
 
@@ -109,7 +127,7 @@ function ComputerPlay()
         
     })*/
 
-}
+
 
 //Player joue
 
@@ -132,7 +150,6 @@ function PlayerPlay()
                         isPlaying = false;
                         console.log("Player has played");
                         console.log(isPlaying);
-                        console.log("computer plays");
                         break;
                     }
                 }
@@ -144,17 +161,6 @@ function PlayerPlay()
     });
    
 }
-
-PlayerPlay();
-
-
-
-
-
-
-function TestLog() { console.log(btnTicTacToe); }
-
-TestLog();
 
 
 
