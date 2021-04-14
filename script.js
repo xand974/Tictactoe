@@ -31,15 +31,36 @@ const classBtn = document.getElementsByClassName('.divBtn');
 
 const btnTicTacToe = document.querySelectorAll('button');
 const textX = document.querySelectorAll('p');
+
+
+//Banniere : Qui commence le jeu
+const banPlayer = document.getElementById('banPlayer');
+const banPlayerTwo = document.getElementById('banPlayerTwo');
+//En jeu
 let isPlaying = true;
+
+
+//Gagnant
+var interPlay =  setInterval(PlayerWon , 3000);
+var inter =  setInterval(Winner, 1600);
 
 let hasWon = false;
 
+
+//Lettre
 var x = "X";
 var o = "O";
 
 //Ordi Joue
 console.log(isPlaying);
+
+
+//Declaration des fonstions 
+
+
+WhoSTart();
+PlayerWon();
+Winner();
 
 
 
@@ -51,6 +72,8 @@ function WhoSTart()
     var j = Math.floor(Math.random() * 2);
     if(j == 1)
     {
+        banPlayerTwo.style.display = "none";
+        SetStartOne();
         console.log("Player plays")
         PlayerPlay();
     }
@@ -59,14 +82,31 @@ function WhoSTart()
         console.log("Computer plays");
         ComputerPlay();
         isPlaying = false;
+        SetStartTwo();
+        banPlayer.style.display = "none";
+
     }
 }
 
-WhoSTart();
-PlayerWon();
-Winner();
 
 
+//Banniere anim
+
+function SetStartOne()
+{
+    var interStart = setTimeout(function() 
+    {
+        banPlayer.style.display = "none";
+    }, 1000)
+}
+
+function SetStartTwo()
+{
+    var interStartTwo = setTimeout(function() 
+    {
+        banPlayerTwo.style.display = "none";
+    }, 1000)
+}
 
 //Script second joueur
 //tableau de toutes les valeurs de 0 à 8
@@ -190,8 +230,7 @@ function PlayerWon()
     }
 }
 
-var interPlay =  setInterval(PlayerWon , 3000);
-var inter =  setInterval(Winner, 1600);
+
 
 function Winner()
 {
@@ -204,16 +243,17 @@ function Winner()
     }
     else
     {
-        setTimeout(WeHaveAWinner, 2000);
+        setTimeout(PrintTheAWinner, 1000);
         console.log("we have a winner");
+        clearInterval(inter);
+        clearInterval(interPlay);
     }
 }
 
-function WeHaveAWinner()
+function PrintTheAWinner()
 {
     console.log("PLAYER IS THE WINNER");
-    clearInterval(inter);
-    clearInterval(interPlay);
+
 }
 
 
