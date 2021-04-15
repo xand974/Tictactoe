@@ -80,14 +80,23 @@ var namePlayerTwo = "";
 
 const PlayerOneh4 = document.getElementById('p1Txt');
 const PlayerTwoh4 = document.getElementById('p2Txt');
+const PlayerOneWinName = document.querySelector('.WinP1');
+const PlayerTwoWinName = document.querySelector('.WinP2');
 
-namePlayerOne = prompt("entrez le nom du joueur 1 : " );
-namePlayerTwo = prompt("entrez le nom du joueur 2 : ");
+namePlayerOne = prompt("Entrez le nom du joueur 1 : " );
+namePlayerTwo = prompt("Entrez le nom du joueur 2 : ");
 
 PlayerOneh4.innerHTML = `${namePlayerOne} starts !`;
 PlayerTwoh4.innerHTML = `${namePlayerTwo} starts !`;
 
+PlayerOneWinName.innerHTML = `${namePlayerOne} wins !`;
+PlayerTwoWinName.innerHTML = `${namePlayerTwo} wins !`;
 
+
+
+//Bouger le plateau du jeu 
+
+const floatTheGame = document.querySelector('.floatTheGame');
 
 
             //Declaration des fonstions 
@@ -97,6 +106,17 @@ WhoSTart();
 PlayerWon();
 Winner();
 ComputerWon();
+
+//Faire bouger le plateau : fonction
+
+window.addEventListener('mousemove', (e) => 
+{
+    
+    var mouseX = e.x /50 ;
+    var mouseY = e.y /20;
+    floatTheGame.style.transform = `rotateX(${mouseY}deg)`;
+    floatTheGame.style.transform = `rotateY(${mouseX}deg)`;
+})
 
 
 //Qui commence ? 
@@ -258,7 +278,11 @@ function PlayerWon()
            btnTicTacToe[3].innerHTML == x && btnTicTacToe[4].innerHTML == x && btnTicTacToe[5].innerHTML == x || 
            btnTicTacToe[6].innerHTML == x && btnTicTacToe[7].innerHTML == x && btnTicTacToe[8].innerHTML == x ||
            btnTicTacToe[0].innerHTML == x && btnTicTacToe[4].innerHTML == x && btnTicTacToe[8].innerHTML == x ||
-           btnTicTacToe[2].innerHTML == x && btnTicTacToe[4].innerHTML == x && btnTicTacToe[6].innerHTML == x)
+           btnTicTacToe[2].innerHTML == x && btnTicTacToe[4].innerHTML == x && btnTicTacToe[6].innerHTML == x ||
+           btnTicTacToe[0].innerHTML == x && btnTicTacToe[3].innerHTML == x && btnTicTacToe[6].innerHTML == x ||
+           btnTicTacToe[1].innerHTML == x && btnTicTacToe[4].innerHTML == x && btnTicTacToe[7].innerHTML == x ||
+           btnTicTacToe[2].innerHTML == x && btnTicTacToe[5].innerHTML == x && btnTicTacToe[8].innerHTML == x
+           )
         {
             console.log("player a gagné");
             hasWon = true;
@@ -268,7 +292,13 @@ function PlayerWon()
     }
 }
 
-
+function MatchNul() 
+{
+    if(hasWon == false && btnTicTacToe.disabled == true )
+    {
+        console.log("match nul");
+    }
+}
 
 function ComputerWon()
 {
@@ -278,7 +308,10 @@ function ComputerWon()
            btnTicTacToe[3].innerHTML == o && btnTicTacToe[4].innerHTML == o && btnTicTacToe[5].innerHTML == o || 
            btnTicTacToe[6].innerHTML == o && btnTicTacToe[7].innerHTML == o && btnTicTacToe[8].innerHTML == o ||
            btnTicTacToe[0].innerHTML == o && btnTicTacToe[4].innerHTML == o && btnTicTacToe[8].innerHTML == o ||
-           btnTicTacToe[2].innerHTML == o && btnTicTacToe[4].innerHTML == o && btnTicTacToe[6].innerHTML == o)
+           btnTicTacToe[2].innerHTML == o && btnTicTacToe[4].innerHTML == o && btnTicTacToe[6].innerHTML == o ||
+           btnTicTacToe[0].innerHTML == o && btnTicTacToe[3].innerHTML == o && btnTicTacToe[6].innerHTML == o ||
+           btnTicTacToe[1].innerHTML == o && btnTicTacToe[4].innerHTML == o && btnTicTacToe[7].innerHTML == o ||
+           btnTicTacToe[2].innerHTML == o && btnTicTacToe[5].innerHTML == o && btnTicTacToe[8].innerHTML == o)
         {
             console.log("player 2 a gagné");
             hasWon = true;
