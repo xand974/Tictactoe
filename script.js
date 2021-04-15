@@ -25,10 +25,20 @@ myTitle.addEventListener('mouseleave', () => {
 
 
 
+
+
 //Jeu Tic Tac Toe
 
-const btnTicTacToe = document.querySelectorAll('button');
+
+                //Variable 
+
+const btnTicTacToe = document.querySelectorAll(".divBtn");
 const textX = document.querySelectorAll('p');
+
+//Anim Banniere Fin de Jeu : Le gagnant
+
+const banWinPlayerOne = document.getElementById('P1W');
+const banWinPlayerTwo = document.getElementById('P2W');
 
 
 //Banniere : Qui commence le jeu
@@ -39,12 +49,19 @@ let isPlaying = true;
 var hasPlayerWon;
 
 //Gagnant
-var interPlay =  setInterval(PlayerWon , 3000);
-var inter =  setInterval(Winner, 1600);
-var interPlayTwo = setInterval(ComputerWon, 3000);
-
-
+var interPlay =  setInterval(PlayerWon , 500);
+var inter =  setInterval(Winner, 1000);
+var interPlayTwo = setInterval(ComputerWon, 500);
 let hasWon = false;
+
+//Recommencer
+const reco = document.querySelector('.RecoDiv');
+reco.addEventListener('click' , NewGame);
+
+function NewGame() 
+{
+    document.location.reload();
+}
 
 
 //Lettre
@@ -55,7 +72,25 @@ var o = "O";
 console.log(isPlaying);
 
 
-//Declaration des fonstions 
+
+
+//Recup de nom
+var namePlayerOne = "";
+var namePlayerTwo = "";
+
+const PlayerOneh4 = document.getElementById('p1Txt');
+const PlayerTwoh4 = document.getElementById('p2Txt');
+
+namePlayerOne = prompt("entrez le nom du joueur 1 : " );
+namePlayerTwo = prompt("entrez le nom du joueur 2 : ");
+
+PlayerOneh4.innerHTML = `${namePlayerOne} starts !`;
+PlayerTwoh4.innerHTML = `${namePlayerTwo} starts !`;
+
+
+
+
+            //Declaration des fonstions 
 
 
 WhoSTart();
@@ -287,15 +322,24 @@ function Winner()
 
 function PrintTheAWinner()
 {
+    banWinPlayerOne.style.display = "block";
+    banWinPlayerOne.style.transition = "0.3s";
     console.log("PLAYER ONE IS THE WINNER");
     console.log(hasPlayerWon);
-
+    reco.classList.add('animReco');
+    reco.style.display = "block";
+    console.log(reco);
 }
 
 function PrintTheAWinnerPlayerTwo()
 {
+    banWinPlayerTwo.style.display = "block";
+    banWinPlayerTwo.style.transition = "0.3s";
     console.log("PLAYER TWO IS THE WINNER");
     console.log(hasPlayerWon);
+    reco.classList.add('animReco');
+    reco.style.display = "block";
+    console.log(reco);
 }
 
 

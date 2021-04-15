@@ -98,7 +98,74 @@ button{
 }
 
 
-button:hover
+/*Banniere Victoire*/
+
+.PlayerOneWin , .PlayerTwoWin{
+    display: none;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50% , -50%);
+    width: 800px;
+    height: 250px;
+    background: linear-gradient(to left, rgb(255, 169, 119), rgba(255, 197, 131, 0.842));
+    border: 10px solid rgba(255, 167, 52, 0.3);
+    border-radius: 25px;
+    box-shadow: 0px 0px 600px rgb(0, 0, 0, 0.3);
+}
+
+.PlayerOneWin h4 , .PlayerTwoWin h4{
+    font-size: 60px;
+    font-family: 'Exo';
+    text-align: center;
+    color: rgb(255, 255, 255);
+   
+    
+}
+
+/*recommencer*/
+
+.RecoDiv{
+    display: none;
+    position: absolute;
+    top: 60%;
+    left: 50%;
+    transform: translate(-50%, 0%);
+    border-radius: 20px;
+    border: 10px solid rgb(255, 123, 90);
+    width: 300px;
+    height: 100px;
+    background: linear-gradient(to left , rgb(255, 137, 100), rgb(255, 108, 71));
+    box-shadow: 0px 0px 20px rgb(0, 0, 0, 0.3);
+}
+
+#reco{
+    cursor: pointer;
+    list-style-type: none;
+    text-decoration: none;
+    color: white;
+    font-size: 30px ;
+    position: absolute;
+    left: 20px;
+    bottom: 30px;
+    font-family: 'Exo';
+    letter-spacing: 5px;
+    background: none;
+    border: none;
+    padding: -20px 0px;
+}
+
+
+.animReco{
+    background: rgb(248, 148, 90);
+    color: rgb(0, 0, 0);
+    transition: 0.3s;
+    border: 5px solid rgba(255, 167, 52, 0.3) ;
+}
+
+/*Anim bouton*/
+
+.divBtn:hover
 {
     box-shadow: 0px 5px 10px rgb(0, 0, 0, 0.3);
     transition: 0.5s;
@@ -108,4 +175,9 @@ button:hover
 
     transition: 0.3s;
     opacity: 1;
+}
+
+#reco:hover{
+    color: rgb(0, 0, 0,0.3);
+    transition: 0.3s;
 }
