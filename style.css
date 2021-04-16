@@ -18,7 +18,7 @@ body{
     font-family: 'Exo', Arial, Helvetica, sans-serif;
     letter-spacing:7px;
     color: lightyellow;
-    animation : OneAnim 4s ease-in-out infinite running;
+    animation : OneAnim 4s ease-in-out infinite;
 }
 
 @keyframes OneAnim {
@@ -164,7 +164,6 @@ button{
     letter-spacing: 5px;
     background: none;
     border: none;
-    padding: -20px 0px;
 }
 
 
