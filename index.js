@@ -1,4 +1,4 @@
-import { initGame } from "./scripts/game.js";
+import { GameManager } from "./scripts/game.js";
 import { ctx } from "./scripts/canvas.js";
-
-initGame(ctx);
+GameManager.Instance.initGame(ctx);
+GameManager.Instance.animate();

@@ -1,5 +1,8 @@
-export const generateTile = ({ Sprite, row, column, ctx }) => {
+import { Sprite } from "./sprite.js";
+
+export const generateTile = ({ row, column, ctx, color }) => {
   const sprite = new Sprite({
+    color,
     position: { x: row, y: column },
   });
   sprite.draw(ctx);

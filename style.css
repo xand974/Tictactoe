@@ -18,4 +18,5 @@ canvas {
   position: relative;
   top: 10%;
   left: 30%;
+  cursor: pointer;
 }

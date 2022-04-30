@@ -9,7 +9,19 @@ export class Sprite {
 
   draw(ctx) {
     ctx.lineWidth = 1;
+    ctx.strokeStyle = "black";
     ctx.fillStyle = this.color;
+    ctx.fillRect(this.position.x, this.position.y, Sprite.Width, Sprite.Height);
+  }
+
+  setHover(ctx) {
+    ctx.clearRect(
+      this.position.x,
+      this.position.y,
+      Sprite.Width,
+      Sprite.Height
+    );
+    ctx.fillStyle = "blue";
     ctx.fillRect(this.position.x, this.position.y, Sprite.Width, Sprite.Height);
   }
 }
