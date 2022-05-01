@@ -10,24 +10,23 @@ export class GameManager {
     this.inputHandler = new InputHandler({ board: this.board });
   }
 
-  initGame(ctx) {
-    for (let row = 0; row < canvas.width; row += Boundary.Height * 2) {
-      for (
-        let column = 0;
-        column < canvas.height;
-        column += Boundary.Width / 2
-      ) {
+  initGame() {
+    for (let row = 0; row < canvas.width; row += Boundary.Height) {
+      for (let column = 0; column < canvas.height; column += Boundary.Width) {
+        column = Math.floor(column);
+        row = Math.floor(row);
         let random = Math.floor(Math.random() * 10);
         if (random < 4) {
           generateTile({ Sprite: Boundary, row, column, ctx });
           this.board.push(new Boundary({ position: { x: row, y: column } }));
           continue;
         }
-        this.board.push(new Movable({ position: { x: row, y: column } }));
+        this.board.push(
+          new Movable({ position: { x: row, y: column }, isHovered: false })
+        );
         generateTile({ Sprite: Movable, row, column, ctx });
       }
     }
-    this.draw();
     this.draw();
   }
 
