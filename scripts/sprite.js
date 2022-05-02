@@ -13,17 +13,19 @@ export class Sprite {
   }
 
   setHover() {
+    this.color = "blue";
     ctx.clearRect(
       this.position.x,
       this.position.y,
       Sprite.Width,
       Sprite.Height
     );
-    ctx.fillStyle = "blue";
+    ctx.fillStyle = this.color;
     ctx.fillRect(this.position.x, this.position.y, Sprite.Width, Sprite.Height);
   }
 
   resetColor() {
+    this.color = "green";
     ctx.clearRect(
       this.position.x,
       this.position.y,

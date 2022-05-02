@@ -2,7 +2,6 @@ import { Sprite } from "./sprite.js";
 export class Movable extends Sprite {
   constructor({ color = "green", position, isHovered }) {
     super({ color, position });
-
     this.isHovered = isHovered;
   }
 

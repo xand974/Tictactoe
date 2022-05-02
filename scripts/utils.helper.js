@@ -1,11 +1,10 @@
 import { Sprite } from "./sprite.js";
 
-export const generateTile = ({ row, column, ctx, color }) => {
+export const generateTile = ({ row, column, color }) => {
   const sprite = new Sprite({
     color,
     position: { x: row, y: column },
   });
-  sprite.draw(ctx);
 };
 
 export const generateRandomColor = () => {

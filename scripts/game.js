@@ -1,33 +1,54 @@
 import { Boundary } from "./boundary.js";
 import { canvas, ctx } from "./canvas.js";
 import { Movable } from "./movable.js";
-import { generateTile } from "./utils.helper.js";
 import { InputHandler } from "./inputs.js";
+import { Player } from "./player.js";
+import { UI } from "./ui.js";
 export class GameManager {
   static Instance = new GameManager();
   constructor() {
     this.board = [];
-    this.inputHandler = new InputHandler({ board: this.board });
+    this.player = new Player({});
+    // new UI();
+    this.inputHandler = new InputHandler({
+      board: this.board,
+      player: this.player,
+    });
   }
 
   initGame() {
+    this.initBoard();
+    this.initPlayer();
+    this.draw();
+  }
+
+  initPlayer() {
+    const randomIndex = Math.floor(Math.random() * this.board.length);
+    const selectedTile = this.board[randomIndex];
+    if (selectedTile instanceof Boundary) this.initPlayer();
+    const randomX = selectedTile.position.x;
+    const randomY = selectedTile.position.y;
+    this.player.position = {
+      x: randomX,
+      y: randomY,
+    };
+  }
+
+  initBoard() {
     for (let row = 0; row < canvas.width; row += Boundary.Height) {
       for (let column = 0; column < canvas.height; column += Boundary.Width) {
         column = Math.floor(column);
         row = Math.floor(row);
         let random = Math.floor(Math.random() * 10);
         if (random < 4) {
-          generateTile({ Sprite: Boundary, row, column, ctx });
           this.board.push(new Boundary({ position: { x: row, y: column } }));
           continue;
         }
         this.board.push(
           new Movable({ position: { x: row, y: column }, isHovered: false })
         );
-        generateTile({ Sprite: Movable, row, column, ctx });
       }
     }
-    this.draw();
   }
 
   animate() {
@@ -44,12 +65,8 @@ export class GameManager {
 
   draw() {
     for (const item of this.board) {
-      generateTile({
-        color: item.color,
-        row: item.position.x,
-        column: item.position.y,
-        ctx,
-      });
+      item.draw();
     }
+    this.player.draw();
   }
 }
