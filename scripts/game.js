@@ -23,8 +23,10 @@ export class GameManager {
   }
 
   initPlayer() {
-    const randomIndex = Math.floor(Math.random() * this.board.length);
-    const selectedTile = this.board[randomIndex];
+    const randomColumnIndex = Math.floor(Math.random() * this.board.length);
+    const randomRowTile = this.board[randomColumnIndex];
+    const randomRowIndex = Math.floor(Math.random() * randomRowTile.length);
+    const selectedTile = randomRowTile[randomRowIndex];
     if (selectedTile instanceof Boundary) this.initPlayer();
     const randomX = selectedTile.position.x;
     const randomY = selectedTile.position.y;
@@ -36,18 +38,19 @@ export class GameManager {
 
   initBoard() {
     for (let row = 0; row < canvas.width; row += Boundary.Height) {
+      let rowArray = [];
       for (let column = 0; column < canvas.height; column += Boundary.Width) {
         column = Math.floor(column);
         row = Math.floor(row);
         let random = Math.floor(Math.random() * 10);
         if (random < 4) {
-          this.board.push(new Boundary({ position: { x: row, y: column } }));
+          rowArray.push(new Boundary({ position: { x: row, y: column } }));
           continue;
         }
-        this.board.push(
-          new Movable({ position: { x: row, y: column }, isHovered: false })
-        );
+        rowArray.push(new Movable({ position: { x: row, y: column } }));
       }
+      this.board.push(rowArray);
+      rowArray = [];
     }
   }
 
@@ -65,7 +68,9 @@ export class GameManager {
 
   draw() {
     for (const item of this.board) {
-      item.draw();
+      for (const i of item) {
+        i.draw();
+      }
     }
     this.player.draw();
   }
