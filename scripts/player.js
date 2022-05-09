@@ -50,7 +50,7 @@ export class Player extends Sprite {
           y: y - 1,
         },
         {
-          //right
+          //bottom
           x: x,
           y: y + 1,
         },
