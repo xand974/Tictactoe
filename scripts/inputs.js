@@ -4,12 +4,13 @@ import { Movable } from "./movable.js";
 import { Sprite } from "./sprite.js";
 
 export class InputHandler {
-  constructor({ board, player }) {
+  constructor({ board, player, grid }) {
     /**
      * @type {Sprite[][]}
      */
     this.board = board;
     this.player = player;
+    this.grid = grid;
     canvas.addEventListener("click", this.handleClick.bind(this));
     canvas.addEventListener("mousemove", this.handleMouseMove.bind(this));
   }
@@ -25,67 +26,35 @@ export class InputHandler {
       undefined
     );
     if (!selectedTile || selectedTile instanceof Boundary) return;
-    // selectedTile.setHover();
-    this.player.moveTo(
-      {
-        x: selectedTile.position.x,
-        y: selectedTile.position.y,
+    this.player.generatePath({
+      startingPosition: {
+        x: this.player.position.x,
+        y: this.player.position.y,
       },
-      1
-    );
+      board: this.board,
+      selectedPath: selectedTile,
+    });
   }
 
   // TODO - Redo that case
   handleMouseMove(e) {
-    const indexOfPlayerInArray = this.getPlayerInArray(e);
-    let paths = [];
-    for (const [index, item] of this.board.entries()) {
-      if (
-        indexOfPlayerInArray - this.player.pm <= index &&
-        indexOfPlayerInArray + this.player.pm >= index &&
-        indexOfPlayerInArray !== index &&
-        item instanceof Movable &&
-        !(item instanceof Boundary)
-      ) {
-        const pathTile = this.board[index];
-        paths.push(pathTile);
-        pathTile.setHover();
-        pathTile.markAsHovered();
-        continue;
-      }
-    }
-  }
-
-  generatePath(row, col) {
-    const queue = [];
-
-    queue.push(this.player.position);
-    while (queue.length > 0) {
-      const { x, y } = queue.shift();
-      const neighbors = [
-        {
-          //top
-          row: x - Sprite.Height,
-          col,
-        },
-        {
-          //right
-          row: row,
-          col: y + Sprite.Width,
-        },
-        {
-          //bottom
-          row: x + Sprite.Height,
-          col,
-        },
-        {
-          //left
-          row: row,
-          col: y - Sprite.Width,
-        },
-      ];
-      for (let index = 0; index < neighbors.length; index++) {}
-    }
+    // const indexOfPlayerInArray = this.getPlayerInArray(e);
+    // let paths = [];
+    // for (const [index, item] of this.board.entries()) {
+    //   if (
+    //     indexOfPlayerInArray - this.player.pm <= index &&
+    //     indexOfPlayerInArray + this.player.pm >= index &&
+    //     indexOfPlayerInArray !== index &&
+    //     item instanceof Movable &&
+    //     !(item instanceof Boundary)
+    //   ) {
+    //     const pathTile = this.board[index];
+    //     paths.push(pathTile);
+    //     pathTile.setHover();
+    //     pathTile.markAsHovered();
+    //     continue;
+    //   }
+    // }
   }
 
   getPlayerInArray(e) {

@@ -2,9 +2,10 @@ import { canvas, ctx } from "./canvas.js";
 export class Sprite {
   static Width = canvas.width / 12;
   static Height = canvas.width / 12;
-  constructor({ color, position }) {
+  constructor({ color, position, positionInGrid }) {
     this.color = color;
     this.position = position;
+    this.positionInGrid = positionInGrid;
   }
 
   draw() {
@@ -22,6 +23,15 @@ export class Sprite {
     );
     ctx.fillStyle = this.color;
     ctx.fillRect(this.position.x, this.position.y, Sprite.Width, Sprite.Height);
+  }
+  markAsHovered() {
+    this.isHovered = true;
+    if (this.isHovered) {
+      const id = setTimeout(() => {
+        clearTimeout(id);
+        this.resetColor();
+      }, 500);
+    }
   }
 
   resetColor() {

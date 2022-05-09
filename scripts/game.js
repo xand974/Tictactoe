@@ -1,4 +1,5 @@
 import { Boundary } from "./boundary.js";
+import { Sprite } from "./sprite.js";
 import { canvas, ctx } from "./canvas.js";
 import { Movable } from "./movable.js";
 import { InputHandler } from "./inputs.js";
@@ -9,48 +10,86 @@ export class GameManager {
   constructor() {
     this.board = [];
     this.player = new Player({});
+    this.entities = ["player", "movable", "boundary"];
+    this.grid = [];
+    this.playerInArray = false;
     // new UI();
+    this.initBoard();
     this.inputHandler = new InputHandler({
       board: this.board,
       player: this.player,
+      grid: this.grid,
     });
   }
 
   initGame() {
-    this.initBoard();
-    this.initPlayer();
     this.draw();
   }
 
-  initPlayer() {
-    const randomColumnIndex = Math.floor(Math.random() * this.board.length);
-    const randomRowTile = this.board[randomColumnIndex];
-    const randomRowIndex = Math.floor(Math.random() * randomRowTile.length);
-    const selectedTile = randomRowTile[randomRowIndex];
-    if (selectedTile instanceof Boundary) this.initPlayer();
-    const randomX = selectedTile.position.x;
-    const randomY = selectedTile.position.y;
-    this.player.position = {
-      x: randomX,
-      y: randomY,
-    };
-  }
-
   initBoard() {
-    for (let row = 0; row < canvas.width; row += Boundary.Height) {
+    for (let row = 0, i = 0; row < canvas.width; row += Sprite.Height, i++) {
       let rowArray = [];
-      for (let column = 0; column < canvas.height; column += Boundary.Width) {
+      let gridArray = [];
+
+      for (
+        let column = 0, j = 0;
+        column < canvas.height;
+        column += Sprite.Width, j++
+      ) {
         column = Math.floor(column);
         row = Math.floor(row);
-        let random = Math.floor(Math.random() * 10);
-        if (random < 4) {
-          rowArray.push(new Boundary({ position: { x: row, y: column } }));
-          continue;
+        let random = Math.floor(Math.random() * this.entities.length);
+        switch (random) {
+          case 0:
+            gridArray.push(0);
+            rowArray.push(
+              new Boundary({
+                position: { x: row, y: column },
+                positionInGrid: { x: i, y: j },
+              })
+            );
+            break;
+          case 1:
+            gridArray.push(1);
+            rowArray.push(
+              new Movable({
+                position: { x: row, y: column },
+                positionInGrid: { x: i, y: j },
+              })
+            );
+            break;
+          case 2:
+            if (!this.playerInArray) {
+              this.player = new Player({
+                ...this.player,
+                position: {
+                  x: row,
+                  y: column,
+                },
+                positionInGrid: {
+                  x: i,
+                  y: j,
+                },
+              });
+              gridArray.push(2);
+              rowArray.push(this.player);
+              this.playerInArray = true;
+              break;
+            }
+            gridArray.push(1);
+            rowArray.push(
+              new Movable({
+                position: { x: row, y: column },
+                positionInGrid: { x: i, y: j },
+              })
+            );
+            break;
         }
-        rowArray.push(new Movable({ position: { x: row, y: column } }));
       }
+      this.grid.push(gridArray);
       this.board.push(rowArray);
       rowArray = [];
+      gridArray = [];
     }
   }
 
@@ -66,12 +105,12 @@ export class GameManager {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
   }
 
+  // TODO position player is static in the array => change it
   draw() {
     for (const item of this.board) {
       for (const i of item) {
         i.draw();
       }
     }
-    this.player.draw();
   }
 }
