@@ -2,6 +2,7 @@ import { Boundary } from "./boundary.js";
 import { canvas, ctx } from "./canvas.js";
 import { Movable } from "./movable.js";
 import { Sprite } from "./sprite.js";
+import { Player } from "./player.js";
 
 export class InputHandler {
   constructor({ board, player, grid }) {
@@ -9,8 +10,15 @@ export class InputHandler {
      * @type {Sprite[][]}
      */
     this.board = board;
+    /**
+     * @type {Player}
+     */
     this.player = player;
+    /**
+     * @type {number[][]}
+     */
     this.grid = grid;
+
     canvas.addEventListener("click", this.handleClick.bind(this));
     canvas.addEventListener("mousemove", this.handleMouseMove.bind(this));
   }
@@ -34,6 +42,11 @@ export class InputHandler {
       board: this.board,
       selectedPath: selectedTile,
     });
+    this.player.positionInGrid = {
+      x: selectedTile.positionInGrid.x,
+      y: selectedTile.positionInGrid.y,
+    };
+    console.log(this.player);
   }
 
   // TODO - Redo that case

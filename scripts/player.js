@@ -76,7 +76,10 @@ export class Player extends Sprite {
       }
     }
 
-    const path = [];
+    /**
+     * @type{Sprite[]}
+     */
+    let path = [];
     let targetKey = `${selectedPath.positionInGrid.x}x${selectedPath.positionInGrid.y}`;
     let cellClicked =
       board[selectedPath.positionInGrid.x][selectedPath.positionInGrid.y];
@@ -92,5 +95,6 @@ export class Player extends Sprite {
       path[i].markAsHovered();
     }
     this.moveTo({ x: selectedPath.position.x, y: selectedPath.position.y }, 1);
+    path = [];
   }
 }

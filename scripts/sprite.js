@@ -4,6 +4,7 @@ export class Sprite {
   static Height = canvas.width / 12;
   constructor({ color, position, positionInGrid }) {
     this.color = color;
+    this.baseColor = this.color;
     this.position = position;
     this.positionInGrid = positionInGrid;
   }
@@ -35,7 +36,7 @@ export class Sprite {
   }
 
   resetColor() {
-    this.color = "green";
+    this.color = this.baseColor;
     ctx.clearRect(
       this.position.x,
       this.position.y,
