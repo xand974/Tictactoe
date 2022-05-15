@@ -1,5 +1,5 @@
 import { canvas, ctx } from "../canvas.js";
-
+import { Player } from "./player.js";
 export class Sprite {
   static Width = 100;
   static Height = 150;
@@ -7,7 +7,8 @@ export class Sprite {
     this.position = position;
     this.color = color;
     this.gravity = 5;
-    this.velocity = 10;
+    this.velocity = 0;
+    this.maxSpeed = 10;
   }
 
   draw() {
@@ -15,6 +16,10 @@ export class Sprite {
     ctx.fillRect(this.position.x, this.position.y, Sprite.Width, Sprite.Height);
   }
 
+  /**
+   * fall
+   * @returns
+   */
   setGravity() {
     if (this.position.y + Sprite.Height >= canvas.height) {
       //touch the floor
@@ -26,20 +31,26 @@ export class Sprite {
     this.draw();
   }
 
+  /**
+   * move left or right
+   * @param {string[]} keys
+   * @returns
+   */
   handleInputs(keys) {
-    console.log(keys);
+    if (!(this instanceof Player)) return;
+    this.position.x += this.velocity;
     if (keys.includes("q")) {
       if (this.position.x <= 0) {
         this.position.x = 0;
-        return;
       }
-      this.position.x -= this.velocity;
+      this.velocity = -this.maxSpeed;
     } else if (keys.includes("d")) {
       if (this.position.x >= canvas.width - Sprite.Width) {
         this.position.x = canvas.width - Sprite.Width;
-        return;
       }
-      this.position.x += this.velocity;
+      this.velocity = this.maxSpeed;
+    } else {
+      this.velocity = 0;
     }
   }
 }

@@ -8,29 +8,32 @@ export class Game {
   /** 
     @type {Player}
     */
-  player;
+  #player;
 
   /**
    * @type {Enemy}
    */
-  enemy;
+  #enemy;
 
   constructor({ player, enemy }) {
     this.player = player;
     this.enemy = enemy;
     this.floor = canvas.height + Sprite.Height;
     this.inputs = new InputHandler();
+    this.entities = [this.player, this.enemy];
   }
 
   init() {
-    this.player.draw();
-    this.enemy.draw();
+    for (const entity of this.entities) {
+      entity.draw();
+    }
   }
 
   animate() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-    this.player.setGravity();
-    this.enemy.setGravity();
+    for (const entity of this.entities) {
+      entity.setGravity();
+    }
   }
 
   play() {
