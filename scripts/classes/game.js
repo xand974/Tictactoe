@@ -33,6 +33,7 @@ export class Game {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     for (const entity of this.entities) {
       entity.setGravity();
+      entity.checkIsInTheAir();
     }
   }
 
@@ -41,6 +42,6 @@ export class Game {
       this.play();
     });
     this.animate();
-    this.player.handleInputs(this.inputs.keys);
+    this.player.handleInputs(this.inputs.keys, this.inputs.lastKey);
   }
 }

@@ -1,27 +1,33 @@
 export class InputHandler {
   constructor() {
     this.keys = [];
+    this.lastKey = "";
     window.addEventListener("keydown", this.down.bind(this));
     window.addEventListener("keyup", this.up.bind(this));
   }
 
   /**
-   *
+   * " " === space
    * @param {KeyboardEvent} e
    */
   down(e) {
-    if ((e.key === "q" || e.key === "d") && this.keys.indexOf(e.key) === -1) {
+    if (
+      (e.key === "q" || e.key === "d" || e.key === " ") &&
+      this.keys.indexOf(e.key) === -1
+    ) {
       this.keys.push(e.key);
+      this.lastKey = e.key;
     }
   }
 
   /**
-   *
+   * " " === space
    * @param {KeyboardEvent} e
    */
   up(e) {
-    if (e.key === "q" || e.key === "d") {
+    if (e.key === "q" || e.key === "d" || e.key === " ") {
       this.keys.splice(this.keys.indexOf(e.key), 1);
+      this.lastKey = "";
     }
   }
 }
