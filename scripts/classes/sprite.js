@@ -1,5 +1,7 @@
 import { canvas, ctx } from "../canvas.js";
+import { gravity } from "../obj/instance.js";
 import { Player } from "./player.js";
+
 export class Sprite {
   static Width = 100;
   static Height = 150;
@@ -7,11 +9,13 @@ export class Sprite {
   constructor({ position, color }) {
     this.position = position;
     this.color = color;
-    this.gravity = 5;
-    this.velocity = 0;
+    this.velocity = {
+      x: 0,
+      y: 0,
+    };
     this.maxSpeed = 10;
     this.isInTheAir = false;
-    this.jumpForce = 200;
+    this.jumpForce = 10;
     this.id = Math.floor(Math.random() * 50);
   }
 
@@ -25,14 +29,14 @@ export class Sprite {
    * @returns
    */
   setGravity() {
+    this.draw();
+    this.position.y += this.velocity.y;
     if (this.position.y + Sprite.Height >= canvas.height) {
       //touch the floor
-      this.position.y = canvas.height - Sprite.Height;
-      this.draw();
+      this.velocity.y = 0;
       return;
     }
-    this.position.y += this.gravity;
-    this.draw();
+    this.velocity.y += gravity;
   }
 
   /**
@@ -57,48 +61,29 @@ export class Sprite {
     }
   }
 
-  #jump(keys) {
+  #jump() {
+    console.log(this.isInTheAir);
     this.checkCollision();
     if (this.isInTheAir) return;
-    this.position.y -= this.jumpForce;
-    if (keys.includes(" ") && keys.includes("q")) {
-      this.position.y -= this.jumpForce;
-      this.#goTo("left");
-      return;
-    }
-    if (keys.includes(" ") && keys.includes("d")) {
-      this.position.y -= this.jumpForce;
-      this.#goTo("right");
-      return;
-    }
+    this.velocity.y -= this.jumpForce;
   }
 
   #goTo(direction) {
-    this.#setFloatingVelocity();
-    this.position.x += this.velocity;
-    this.checkCollision();
+    this.position.x += this.velocity.x;
+    // this.checkCollision();
     switch (direction) {
       case "left":
         this.#checkOverlap(direction);
-        this.velocity = -this.maxSpeed;
+        this.velocity.x = -this.maxSpeed;
         break;
       case "right":
         this.#checkOverlap(direction);
-        this.velocity = this.maxSpeed;
+        this.velocity.x = this.maxSpeed;
         break;
       default:
-        this.velocity = 0;
+        this.velocity.x = 0;
         break;
     }
-  }
-
-  #setFloatingVelocity() {
-    if (this.isInTheAir) {
-      this.velocity /= 2;
-      return;
-    }
-
-    this.velocity = this.velocity;
   }
 
   #checkOverlap(direction) {
@@ -114,7 +99,7 @@ export class Sprite {
   }
 
   checkIsInTheAir() {
-    if (this.position.y + Sprite.Height === canvas.height) {
+    if (this.position.y + Sprite.Height >= canvas.height) {
       this.isInTheAir = false;
       return;
     }
