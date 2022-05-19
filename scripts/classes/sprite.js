@@ -1,5 +1,5 @@
 import { canvas, ctx } from "../canvas.js";
-import { gravity } from "../obj/instance.js";
+import { gravity, enemy } from "../obj/instance.js";
 import { Player } from "./player.js";
 
 export class Sprite {
@@ -17,6 +17,13 @@ export class Sprite {
     this.isInTheAir = false;
     this.jumpForce = 10;
     this.id = Math.floor(Math.random() * 50);
+    this.attackBox = {
+      position: this.position,
+      width: Sprite.Width + 20,
+      height: 20,
+    };
+
+    this.isAttacking = false;
   }
 
   draw() {
@@ -54,15 +61,33 @@ export class Sprite {
         if (keys.includes("q")) this.#goTo("left");
         break;
       case " ":
-        this.#jump(keys);
+        if (keys.includes(" ")) this.#jump(keys);
+        break;
+      case "e":
+        if (keys.includes("e")) this.#attack();
         break;
       default:
         break;
     }
   }
 
+  /**
+   *
+   * @param {Sprite} enemy
+   */
+  #attack() {
+    this.isAttacking = true;
+    this.checkCollision();
+    ctx.fillStyle = "blue";
+    ctx.fillRect(
+      this.attackBox.position.x,
+      this.attackBox.position.y,
+      this.attackBox.width,
+      this.attackBox.height
+    );
+  }
+
   #jump() {
-    console.log(this.isInTheAir);
     this.checkCollision();
     if (this.isInTheAir) return;
     this.velocity.y -= this.jumpForce;
@@ -70,7 +95,6 @@ export class Sprite {
 
   #goTo(direction) {
     this.position.x += this.velocity.x;
-    // this.checkCollision();
     switch (direction) {
       case "left":
         this.#checkOverlap(direction);
@@ -106,5 +130,23 @@ export class Sprite {
     this.isInTheAir = true;
   }
 
-  checkCollision() {}
+  /**
+   *
+   * @param {Sprite} target
+   */
+  checkCollision() {
+    if (!this.isAttacking) return;
+    const leftCollision =
+      this.attackBox.position.x + this.attackBox.width >= enemy.position.x;
+    const rightCollision =
+      this.attackBox.position.x <= enemy.position.x + Sprite.Width;
+    const topCollision =
+      this.attackBox.position.y + this.attackBox.height >= enemy.position.y;
+    const bottomCollision =
+      this.attackBox.position.y <= enemy.position.y + Sprite.Height;
+
+    if (rightCollision && leftCollision && topCollision && bottomCollision) {
+      console.log("proceed to attack");
+    }
+  }
 }

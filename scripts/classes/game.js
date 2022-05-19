@@ -16,11 +16,11 @@ export class Game {
   #enemy;
 
   constructor({ player, enemy }) {
-    this.player = player;
-    this.enemy = enemy;
+    this.#player = player;
+    this.#enemy = enemy;
     this.floor = canvas.height + Sprite.Height;
     this.inputs = new InputHandler();
-    this.entities = [this.player, this.enemy];
+    this.entities = [this.#player, this.#enemy];
   }
 
   init() {
@@ -42,6 +42,6 @@ export class Game {
       this.play();
     });
     this.animate();
-    this.player.handleInputs(this.inputs.keys, this.inputs.lastKey);
+    this.#player.handleInputs(this.inputs.keys, this.inputs.lastKey);
   }
 }

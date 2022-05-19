@@ -12,7 +12,7 @@ export class InputHandler {
    */
   down(e) {
     if (
-      (e.key === "q" || e.key === "d" || e.key === " ") &&
+      (e.key === "q" || e.key === "d" || e.key === " " || e.key == "e") &&
       this.keys.indexOf(e.key) === -1
     ) {
       this.keys.push(e.key);
@@ -25,7 +25,7 @@ export class InputHandler {
    * @param {KeyboardEvent} e
    */
   up(e) {
-    if (e.key === "q" || e.key === "d" || e.key === " ") {
+    if (e.key === "q" || e.key === "d" || e.key === " " || e.key === "e") {
       this.keys.splice(this.keys.indexOf(e.key), 1);
       this.lastKey = "";
     }
