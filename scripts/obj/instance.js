@@ -1,8 +1,22 @@
-import { Player } from "../classes/player.js";
-import { Enemy } from "../classes/enemy.js";
+import { Character } from "../classes/character.js";
 import { Game } from "../classes/game.js";
-const player = new Player({ position: { x: 100, y: 100 } });
-const enemy = new Enemy({ position: { x: 500, y: 100 } });
+
+const player = new Character({
+  position: { x: 100, y: 100 },
+  name: "player",
+  color: "green",
+});
+const enemy = new Character({
+  position: { x: 500, y: 100 },
+  name: "enemy",
+  color: "red",
+});
 const game = new Game({ player, enemy });
+
+const playerUI = document.querySelector("#playerUI .current__health");
+const enemyUI = document.querySelector("#enemyUI .current__health");
+const timer = document.querySelector("#timer");
+
 const gravity = 0.2;
-export { player, game, enemy, gravity };
+
+export { player, game, enemy, gravity, playerUI, enemyUI, timer };

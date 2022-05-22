@@ -1,58 +1,104 @@
-* ,::before , ::after {
-    padding: 0;
-    margin: 0;
-    box-sizing: border-box;
+*,
+::before,
+::after {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
 }
 
 body {
-    overflow: hidden;
+  overflow: hidden;
 }
 
 .health__bar__container {
-    position: absolute;
-    z-index: 5000;
-    width: 40vw;
-    top: 40px;
-    left: 50px;
+  position: absolute;
+  z-index: 5000;
+  width: 40vw;
+  top: 40px;
+  left: 50px;
 
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }
 
 .top {
-    margin-bottom: 10px;
+  margin-bottom: 10px;
 }
 
 .max__health {
-    width: 100%;
-    background: linear-gradient(90deg, rgba(129,14,14,1) 0%, rgba(235,66,72,1) 35%, rgba(255,47,47,1) 100%);
-    height: 20px;
-    position: relative;
+  width: 100%;
+  background: linear-gradient(
+    90deg,
+    rgba(129, 14, 14, 1) 0%,
+    rgba(235, 66, 72, 1) 35%,
+    rgba(255, 47, 47, 1) 100%
+  );
+  height: 20px;
+  position: relative;
 }
 
 .bottom img {
-    object-fit: cover;
-    height: auto;
-    width: 50px;
-    float: left;
+  object-fit: cover;
+  height: auto;
+  width: 50px;
+  float: left;
 }
 
-.health__bar__container#enemy {
-    left: initial;
-    right: 50px;
+.health__bar__container#enemyUI {
+  left: initial;
+  right: 50px;
 }
 
-.health__bar__container#enemy img {
-    float: right;
+.health__bar__container#enemyUI img {
+  float: right;
 }
 
 .current__health {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, rgba(67,227,85,1) 0%, rgba(66,235,116,1) 35%, rgba(101,231,113,1) 100%);
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    rgba(67, 227, 85, 1) 0%,
+    rgba(66, 235, 116, 1) 35%,
+    rgba(101, 231, 113, 1) 100%
+  );
 }
 
-#enemy .current__health {
-    width: 90%;
+#enemyUI .current__health {
+  width: 100%;
+}
+
+.timer {
+  position: absolute;
+  z-index: 20;
+  font-size: 3rem;
+  width: 100px;
+  height: 100px;
+  top: 0%;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: sans-serif;
+  color: rgba(101, 231, 113, 1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.winner__container {
+  z-index: 20000;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  background: black;
+  color: white;
+  width: 500px;
+  height: 300px;
+  display: flex;
+  transform: translate(-50%, -50%);
+  align-items: center;
+  justify-content: center;
+  font-size: 3rem;
+  border-radius: 16px;
+  font-family: system-ui;
 }
