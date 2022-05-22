@@ -37,11 +37,26 @@ body {
   position: relative;
 }
 
+#enemyUI .max__health {
+  display: flex;
+  flex-direction: row-reverse;
+  background: linear-gradient(
+    90deg,
+    rgba(255, 47, 47, 1) 0%,
+    rgba(235, 66, 72, 1) 35%,
+    rgba(129, 14, 14, 1) 100%
+  );
+}
+
 .bottom img {
   object-fit: cover;
   height: auto;
   width: 50px;
   float: left;
+}
+
+#playerUI img {
+  transform: rotateY(180deg);
 }
 
 .health__bar__container#enemyUI {
@@ -63,10 +78,6 @@ body {
     rgba(66, 235, 116, 1) 35%,
     rgba(101, 231, 113, 1) 100%
   );
-}
-
-#enemyUI .current__health {
-  width: 100%;
 }
 
 .timer {

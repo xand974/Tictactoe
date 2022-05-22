@@ -11,18 +11,24 @@ export class UIManager {
   static Instance = new UIManager();
 
   constructor() {
-    this.time = 5;
+    this.time = 60;
+    this.id = 0;
   }
 
   startTimer() {
-    const id = setInterval(() => {
+    this.id = setInterval(() => {
       this.time--;
       timer.innerHTML = this.time;
       if (this.time <= 0) {
         game.end();
-        clearInterval(id);
+        clearInterval(this.id);
       }
     }, 1000);
+  }
+
+  stopTimer() {
+    clearInterval(this.id);
+    return;
   }
 
   /**

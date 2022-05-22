@@ -1,13 +1,16 @@
 import { Sprite } from "./sprite.js";
 import { canvas } from "../canvas.js";
-import { gravity, enemy } from "../obj/instance.js";
+import { gravity } from "../obj/instance.js";
 import { UIManager } from "./ui.js";
+import { checkOverlap, isColliding } from "../utils.js";
 
 export class Character extends Sprite {
+  static Instances = [];
   constructor({ position, color, name }) {
     super({ position, color });
     this.health = 100;
     this.name = name;
+    Character.Instances.push(this);
   }
 
   /**
@@ -26,20 +29,22 @@ export class Character extends Sprite {
   }
 
   #jump() {
-    this.checkCollision();
     if (this.isInTheAir) return;
     this.velocity.y -= this.jumpForce;
   }
 
+  /**
+   *
+   * @param {'left' | 'right'} direction
+   */
   #goTo(direction) {
     this.position.x += this.velocity.x;
+    checkOverlap(direction, this.position);
     switch (direction) {
       case "left":
-        this.#checkOverlap(direction);
         this.velocity.x = -this.maxSpeed;
         break;
       case "right":
-        this.#checkOverlap(direction);
         this.velocity.x = this.maxSpeed;
         break;
       default:
@@ -47,27 +52,26 @@ export class Character extends Sprite {
         break;
     }
   }
-  #checkOverlap(direction) {
-    switch (direction) {
-      case "left":
-        if (this.position.x <= 0) this.position.x = 0;
-        break;
-      case "right":
-        if (this.position.x >= canvas.width - Sprite.Width)
-          this.position.x = canvas.width - Sprite.Width;
-        break;
-    }
-  }
 
   #attack(amount) {
+    const enemy = Character.Instances.filter(
+      (item) => item.name !== this.name
+    )[0];
+    if (!enemy) return;
+
     this.isAttacking = true;
     this.drawAttackBox();
-    if (!this.checkCollision()) return;
-    this.health -= amount;
-    UIManager.Instance.decreaseHealthBar(this.name);
+    if (!isColliding(this.attackBox, enemy)) return;
+
+    enemy.health -= amount;
+    UIManager.Instance.decreaseHealthBar(enemy.name);
   }
 
-  receiveDamage() {}
+  onDie(die) {
+    if (this.health <= 0) {
+      die();
+    }
+  }
 
   checkIsInTheAir() {
     if (this.position.y + Sprite.Height >= canvas.height) {
@@ -78,32 +82,10 @@ export class Character extends Sprite {
   }
 
   /**
-   *
-   * @param {Sprite} target
-   */
-  checkCollision() {
-    if (!this.isAttacking) return;
-    const leftCollision =
-      this.attackBox.position.x + this.attackBox.width >= enemy.position.x;
-    const rightCollision =
-      this.attackBox.position.x <= enemy.position.x + Sprite.Width;
-    const topCollision =
-      this.attackBox.position.y + this.attackBox.height >= enemy.position.y;
-    const bottomCollision =
-      this.attackBox.position.y <= enemy.position.y + Sprite.Height;
-
-    if (rightCollision && leftCollision && topCollision && bottomCollision) {
-      return true;
-    }
-    return false;
-  }
-
-  /**
    * move left or right
    * @param {string[]} keys
    * @returns
    */
-
   handleInputs(keys, lastKey) {
     switch (lastKey) {
       case "d":

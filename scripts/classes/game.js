@@ -67,6 +67,10 @@ export class Game {
     for (const entity of this.entities) {
       entity.setGravity();
       entity.checkIsInTheAir();
+      entity.onDie(() => {
+        UIManager.Instance.stopTimer();
+        this.end();
+      });
     }
   }
 
@@ -84,6 +88,9 @@ export class Game {
 
   end() {
     this.endgame = true;
+
+    // * destroy all instances
+    Character.Instances = [];
 
     // * get the first character with the more life amount left
     const winner = this.entities.sort((a, b) => b.health - a.health)[0];
