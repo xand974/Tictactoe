@@ -10,6 +10,14 @@ export class Character extends Sprite {
     super({ position, color });
     this.health = 100;
     this.name = name;
+    this.velocity = {
+      x: 0,
+      y: 0,
+    };
+    this.maxSpeed = 10;
+    this.isInTheAir = false;
+    this.jumpForce = 10;
+    this.isAttacking = false;
     Character.Instances.push(this);
   }
 
