@@ -7,9 +7,9 @@ https://github.com/xand974/javascript-games/tree/tictactoe
 
 
 ```sh
-git clone https://github.com/xand974/javascript-games.git
-git fetch --all
-git checkout tictactoe
+git clone --single-branch -b turn-based-game https://github.com/xand974/javascript-games.git
+ # if needed
+git pull
 ```
 
 - start a live server
@@ -19,13 +19,24 @@ git checkout tictactoe
 https://github.com/xand974/javascript-games/tree/turn-based-game
 
 ```sh
-git clone https://github.com/xand974/javascript-games.git
-git fetch --all
-git checkout turn-based-game
+git clone --single-branch -b turn-based-game https://github.com/xand974/javascript-games.git
+ # if needed
+git pull
 ```
 
-### Features
-- random map generator
+- Features
+  - random map generator
+
+### 2d - combat game
+https://github.com/xand974/javascript-games/tree/combat-game
+
+```sh
+git clone --single-branch -b combat-game https://github.com/xand974/javascript-games.git
+ # if needed
+git pull
+```
+
+
 
 
 
