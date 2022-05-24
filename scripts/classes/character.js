@@ -6,8 +6,8 @@ import { checkOverlap, isColliding } from "../utils.js";
 
 export class Character extends Sprite {
   static Instances = [];
-  constructor({ position, color, name }) {
-    super({ position, color });
+  constructor({ position, color, name, src }) {
+    super({ position, color, src });
     this.health = 100;
     this.name = name;
     this.velocity = {
@@ -26,7 +26,7 @@ export class Character extends Sprite {
    * @returns
    */
   setGravity() {
-    this.draw();
+    this.drawImg();
     this.position.y += this.velocity.y;
     if (this.position.y + Sprite.Height >= canvas.height) {
       //touch the floor

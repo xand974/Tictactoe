@@ -5,11 +5,13 @@ const player = new Character({
   position: { x: 100, y: 100 },
   name: "player",
   color: "green",
+  src: "../../assets/Ninja/Idle.png",
 });
 const enemy = new Character({
   position: { x: 500, y: 100 },
   name: "enemy",
   color: "red",
+  src: "../../assets/Samurai/Idle.png",
 });
 const game = new Game({ player, enemy });
 
