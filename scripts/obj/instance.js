@@ -2,13 +2,13 @@ import { Character } from "../classes/character.js";
 import { Game } from "../classes/game.js";
 
 const player = new Character({
-  position: { x: 100, y: 100 },
+  position: { x: 0, y: 0 },
   name: "player",
   color: "green",
   src: "../../assets/Ninja/Idle.png",
 });
 const enemy = new Character({
-  position: { x: 500, y: 100 },
+  position: { x: 50, y: 0 },
   name: "enemy",
   color: "red",
   src: "../../assets/Samurai/Idle.png",

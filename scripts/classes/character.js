@@ -26,7 +26,7 @@ export class Character extends Sprite {
    * @returns
    */
   setGravity() {
-    this.drawImg();
+    this.draw();
     this.position.y += this.velocity.y;
     if (this.position.y + Sprite.Height >= canvas.height) {
       //touch the floor

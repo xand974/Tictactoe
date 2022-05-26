@@ -58,7 +58,7 @@ export class Game {
   init() {
     // UIManager.Instance.startTimer();
     for (const entity of this.entities) {
-      entity.drawImg();
+      entity.draw();
     }
   }
 

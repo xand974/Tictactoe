@@ -13,7 +13,7 @@ body {
 .health__bar__container {
   position: absolute;
   z-index: 5000;
-  width: 40vw;
+  width: 20vw;
   top: 40px;
   left: 50px;
 
@@ -61,7 +61,7 @@ body {
 
 .health__bar__container#enemyUI {
   left: initial;
-  right: 50px;
+  left: 500px;
 }
 
 .health__bar__container#enemyUI img {
@@ -87,8 +87,8 @@ body {
   width: 100px;
   height: 100px;
   top: 0%;
-  left: 50%;
-  transform: translateX(-50%);
+  left: 25%;
+  transform: translateX(-5%);
   font-family: sans-serif;
   color: rgba(101, 231, 113, 1);
   display: flex;
