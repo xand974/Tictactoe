@@ -36,6 +36,13 @@ git clone --single-branch -b combat-game https://github.com/xand974/javascript-g
 git pull
 ```
 
+### Wordle
+
+https://github.com/xand974/javascript-games/tree/wordle
+
+- clone of the wordle game
+
+
 
 
 
