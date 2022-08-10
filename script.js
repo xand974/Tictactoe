@@ -1,4 +1,8 @@
 import { populateGrid, drawGrid } from "./modules/setup.js";
-import * as input from "./modules/input.js";
-populateGrid();
-drawGrid();
+import { Input } from "./modules/input.js";
+
+window.addEventListener("load", () => {
+  new Input();
+  populateGrid();
+  drawGrid();
+});
