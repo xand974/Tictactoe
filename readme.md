@@ -1,4 +1,4 @@
-# here's some games I created with pure javascript
+# here's some games I created using vanilla javascript
 
 ## More to come
 
