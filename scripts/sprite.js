@@ -1,8 +1,8 @@
-import { canvas, ctx } from "./canvas.js";
+import {canvas, ctx} from './canvas.js';
 export class Sprite {
   static Width = canvas.width / 12;
   static Height = canvas.width / 12;
-  constructor({ color, position, positionInGrid }) {
+  constructor({color, position, positionInGrid}) {
     this.color = color;
     this.position = position;
     this.positionInGrid = positionInGrid;
@@ -14,7 +14,7 @@ export class Sprite {
   }
 
   setHover() {
-    this.color = "blue";
+    this.color = 'blue';
     ctx.clearRect(
       this.position.x,
       this.position.y,
@@ -35,7 +35,7 @@ export class Sprite {
   }
 
   resetColor() {
-    this.color = "green";
+    this.color = 'green';
     ctx.clearRect(
       this.position.x,
       this.position.y,

@@ -1,16 +1,16 @@
-import { Boundary } from "./boundary.js";
-import { Sprite } from "./sprite.js";
-import { canvas, ctx } from "./canvas.js";
-import { Movable } from "./movable.js";
-import { InputHandler } from "./inputs.js";
-import { Player } from "./player.js";
-import { UI } from "./ui.js";
+import {Boundary} from './boundary.js';
+import {Sprite} from './sprite.js';
+import {canvas, ctx} from './canvas.js';
+import {Movable} from './movable.js';
+import {InputHandler} from './inputs.js';
+import {Player} from './player.js';
+import {UI} from './ui.js';
 export class GameManager {
   static Instance = new GameManager();
   constructor() {
     this.board = [];
     this.player = new Player({});
-    this.entities = ["player", "movable", "boundary"];
+    this.entities = ['player', 'movable', 'boundary'];
     this.grid = [];
     this.playerInArray = false;
     // new UI();
@@ -44,8 +44,8 @@ export class GameManager {
             gridArray.push(0);
             rowArray.push(
               new Boundary({
-                position: { x: row, y: column },
-                positionInGrid: { x: i, y: j },
+                position: {x: row, y: column},
+                positionInGrid: {x: i, y: j},
               })
             );
             break;
@@ -53,8 +53,8 @@ export class GameManager {
             gridArray.push(1);
             rowArray.push(
               new Movable({
-                position: { x: row, y: column },
-                positionInGrid: { x: i, y: j },
+                position: {x: row, y: column},
+                positionInGrid: {x: i, y: j},
               })
             );
             break;
@@ -79,8 +79,8 @@ export class GameManager {
             gridArray.push(1);
             rowArray.push(
               new Movable({
-                position: { x: row, y: column },
-                positionInGrid: { x: i, y: j },
+                position: {x: row, y: column},
+                positionInGrid: {x: i, y: j},
               })
             );
             break;

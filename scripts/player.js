@@ -1,9 +1,9 @@
-import { ctx } from "./canvas.js";
-import { Sprite } from "./sprite.js";
+import {ctx} from './canvas.js';
+import {Sprite} from './sprite.js';
 
 export class Player extends Sprite {
-  constructor({ color = "orange", position, positionInGrid }) {
-    super({ color, position, positionInGrid });
+  constructor({color = 'orange', position, positionInGrid}) {
+    super({color, position, positionInGrid});
     this.pm = 3;
     this.pa = 6;
     this.maxHealth = 100;
@@ -26,11 +26,11 @@ export class Player extends Sprite {
     ctx.fillRect(target.x, target.y, Sprite.Width, Sprite.Height);
   }
 
-  generatePath({ selectedPath, board }) {
+  generatePath({selectedPath, board}) {
     const queue = [this.positionInGrid];
     const visited = {};
     while (queue.length > 0) {
-      const { x, y } = queue.shift();
+      const {x, y} = queue.shift();
       const parentKey = `${x}x${y}`;
       const parentNode = board[x][y];
       const neighbors = [
@@ -82,7 +82,7 @@ export class Player extends Sprite {
       board[selectedPath.positionInGrid.x][selectedPath.positionInGrid.y];
     while (!(cellClicked instanceof Player)) {
       path.push(cellClicked);
-      const { key, cell } = visited[targetKey];
+      const {key, cell} = visited[targetKey];
       cellClicked = cell;
       targetKey = key;
     }
@@ -91,6 +91,6 @@ export class Player extends Sprite {
       path[i].setHover();
       path[i].markAsHovered();
     }
-    this.moveTo({ x: selectedPath.position.x, y: selectedPath.position.y }, 1);
+    this.moveTo({x: selectedPath.position.x, y: selectedPath.position.y}, 1);
   }
 }

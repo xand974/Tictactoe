@@ -1,18 +1,18 @@
-import { Boundary } from "./boundary.js";
-import { canvas, ctx } from "./canvas.js";
-import { Movable } from "./movable.js";
-import { Sprite } from "./sprite.js";
+import {Boundary} from './boundary.js';
+import {canvas, ctx} from './canvas.js';
+import {Movable} from './movable.js';
+import {Sprite} from './sprite.js';
 
 export class InputHandler {
-  constructor({ board, player, grid }) {
+  constructor({board, player, grid}) {
     /**
      * @type {Sprite[][]}
      */
     this.board = board;
     this.player = player;
     this.grid = grid;
-    canvas.addEventListener("click", this.handleClick.bind(this));
-    canvas.addEventListener("mousemove", this.handleMouseMove.bind(this));
+    canvas.addEventListener('click', this.handleClick.bind(this));
+    canvas.addEventListener('mousemove', this.handleMouseMove.bind(this));
   }
 
   handleClick(e) {
