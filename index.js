@@ -32,6 +32,7 @@ async function tileElementListener(event) {
   await new Promise((res) => setTimeout(res, 1000));
   event.target.style.position = 'static';
   tileRetrieverElement.appendChild(event.target);
+  event.target.removeEventListener('click', tileElementListener);
 }
 
 /**
