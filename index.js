@@ -1,7 +1,14 @@
 const tiles = [];
 
-const TILE_COUNT = 10;
+const TILE_COUNT = 12;
 const LAYERS = 3;
+
+const INITIAL_TILES_MATCH = [
+  {color: '#ffef5e', count: 0},
+  {color: '#5ee2ff', count: 0},
+  {color: '#5effc7', count: 0},
+  {color: '#74ff5e', count: 0},
+];
 
 const body = document.querySelector('body');
 
@@ -23,9 +30,9 @@ const clamp = (min, value, max) => {
  * @param {MouseEvent} event
  */
 async function tileElementListener(event) {
-  if (tiles.length >= 8) return;
+  if (tiles.length >= 7) return;
 
-  const { left, top } = tileRetrieverElement.getBoundingClientRect();
+  const {left, top} = tileRetrieverElement.getBoundingClientRect();
   event.target.style.top = `${top + 10}px`;
   event.target.style.left = `${10 + left + 110 * tiles.length}px`;
   tiles.push(1);
@@ -42,6 +49,8 @@ const renderInitialTiles = () => {
   for (let i = 0; i <= TILE_COUNT; i++) {
     const tileElement = document.createElement('div');
     tileElement.classList.add('tile');
+
+    /* POSITION */
 
     // TOP VALUE
     const topRand = Math.random() * 100;
@@ -67,11 +76,19 @@ const renderInitialTiles = () => {
 
     tileElement.style.left = `${leftClamp * leftRand2}px`;
 
-    // BACKGROUND
+    /* BACKGROUND */
 
-    tileElement.style.background = `rgb(255, ${255 - Math.floor(topRand)}, ${
-      255 - Math.floor(topRand)
-    })`;
+    const colorFound = INITIAL_TILES_MATCH.find(
+      (t) => t.count != Math.floor(TILE_COUNT / INITIAL_TILES_MATCH.length)
+    );
+
+    if (colorFound) {
+      colorFound.count += 1;
+      // tileElement.style.background = `rgb(255, ${255 - Math.floor(topRand)}, ${
+      //   255 - Math.floor(topRand)
+      // })`;
+      tileElement.style.background = colorFound.color;
+    }
 
     tileElement.addEventListener('click', tileElementListener);
 
@@ -83,6 +100,5 @@ const renderInitialTiles = () => {
 };
 
 window.addEventListener('load', () => {
-  console.log('lalalal');
   renderInitialTiles();
 });

@@ -10,7 +10,7 @@ body {
   font-family: sans-serif;
   height: 100vh;
   width: 100vw;
-  background: rgb(201, 201, 201);
+  background: rgb(195, 255, 243);
   position: relative;
 }
 
@@ -29,14 +29,14 @@ body {
 }
 
 .tileRetriever {
-  background: rgb(220, 220, 220);
+  background: rgb(246, 238, 255);
   position: absolute;
   bottom: 30px;
   left: 50%;
   transform: translateX(-50%);
   z-index: 10;
   height: 120px;
-  width: 890px;
+  width: 790px;
   border-radius: 10px;
   display: flex;
   align-items: center;
